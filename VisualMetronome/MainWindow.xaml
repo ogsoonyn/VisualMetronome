@@ -5,8 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualMetronome"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Visual Metronome" Height="{Binding PixelHeight, Mode=TwoWay}" Width="{Binding PixelWidth, Mode=TwoWay}" WindowState="Maximized">
+    <Window.DataContext>
+        <local:VisualMetronomeViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <Storyboard x:Key="rectAnimation">
+            <DoubleAnimation
+                Storyboard.TargetName="rect" 
+                Storyboard.TargetProperty="(Canvas.Left)"
+                To="{Binding PixelWidth, Mode=OneWay}"
+                From="-10"                   
+                Duration="{Binding AnimeDuration}" 
+                RepeatBehavior="Forever"
+                AutoReverse="True"/>
+        </Storyboard>
+    </Window.Resources>
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Version" VerticalAlignment="Center" Command="{Binding ShowVersionCmd}"/>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Physical Display Size: "/>
+                    <TextBox Text="{Binding PhysicalWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Width="40">
+                        <TextBox.Triggers>
+                            <EventTrigger RoutedEvent="TextBox.TextChanged">
+                                <BeginStoryboard Storyboard="{StaticResource rectAnimation}"/>
+                            </EventTrigger>
+                        </TextBox.Triggers>
+                    </TextBox>
+                    <TextBlock Text="mm"/>
+                </StackPanel>
+            </StatusBarItem>
+            <Separator />
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Move Width: "/>
+                    <TextBox Text="{Binding PixelWidth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Width="40">
+                        <TextBox.Triggers>
+                            <EventTrigger RoutedEvent="TextBox.TextChanged">
+                                <BeginStoryboard Storyboard="{StaticResource rectAnimation}"/>
+                            </EventTrigger>
+                        </TextBox.Triggers>
+                    </TextBox>
+                    <TextBlock Text="px"/>
+                </StackPanel>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Speed: "/>
+                    <TextBox Text="{Binding MilliPerSec, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Width="40">
+                        <TextBox.Triggers>
+                            <EventTrigger RoutedEvent="TextBox.TextChanged">
+                                <BeginStoryboard Storyboard="{StaticResource rectAnimation}"/>
+                            </EventTrigger>
+                        </TextBox.Triggers>
+                    </TextBox>
+                    <TextBlock Text="mm/sec"/>
+                </StackPanel>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock Text="{Binding AnimeDuration, Mode=OneWay}"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <Canvas Background="Gray" ClipToBounds="True">
+            <Rectangle Name="rect" Width="10" Fill="Red" 
+                       Height="{Binding PixelHeight}" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Rectangle.Loaded">
+                        <BeginStoryboard Storyboard="{StaticResource rectAnimation}"/>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+        </Canvas>
+
+    </DockPanel>
 </Window>
