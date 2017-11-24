@@ -60,8 +60,8 @@ namespace VisualMetronome
 
         public VisualMetronomeViewModel()
         {
-            PhysicalWidth = 550; // mm
-            MilliPerSec = 40;
+            PhysicalWidth = 346; // mm
+            MilliPerSec = 100;
             PixelWidth = SystemParameters.WorkArea.Width;
             PixelHeight = SystemParameters.WorkArea.Height;
         }
