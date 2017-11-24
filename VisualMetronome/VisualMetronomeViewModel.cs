@@ -64,6 +64,27 @@ namespace VisualMetronome
             MilliPerSec = 100;
             PixelWidth = SystemParameters.WorkArea.Width;
             PixelHeight = SystemParameters.WorkArea.Height;
+
+            // コマンドライン引数からパラメータ取得！
+            if (App.CommandLineArgs != null)
+            {
+                int index = 0;
+                foreach(string arg in App.CommandLineArgs)
+                {
+                    switch (index)
+                    {
+                        case 0:
+                            PhysicalWidth = Double.Parse(arg);
+                            break;
+                        case 1:
+                            MilliPerSec = Double.Parse(arg);
+                            break;
+                        default:
+                            break;
+                    }
+                    index++;
+                }
+            }
         }
 
         private ICommand _showVersionCmd;

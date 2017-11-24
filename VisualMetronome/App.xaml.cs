@@ -13,5 +13,13 @@ namespace VisualMetronome
     /// </summary>
     public partial class App : Application
     {
+        public static string[] CommandLineArgs { get; private set; }
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            if (e.Args.Length == 0)
+                return;
+
+            CommandLineArgs = e.Args;
+        }
     }
 }
