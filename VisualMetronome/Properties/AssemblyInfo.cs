@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("VisualMetronome")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ynkmr")]
 [assembly: AssemblyProduct("VisualMetronome")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]

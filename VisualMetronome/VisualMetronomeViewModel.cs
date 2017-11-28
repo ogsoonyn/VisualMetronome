@@ -35,6 +35,8 @@ namespace VisualMetronome
             set
             {
                 _physicalWidth = value;
+                Properties.Settings.Default.PhysicalWidth = _physicalWidth;
+                Properties.Settings.Default.Save();
                 base.RaisePropertyChanged(() => PhysicalWidth);
                 base.RaisePropertyChanged(() => AnimeDuration);
             }
@@ -45,6 +47,9 @@ namespace VisualMetronome
         {
             get { return _mmPerSec; }
             set { _mmPerSec = value;
+
+                Properties.Settings.Default.MilliPerSec = _mmPerSec;
+                Properties.Settings.Default.Save();
 
                 // calculate duration from speed
                 base.RaisePropertyChanged(() => MilliPerSec);
@@ -60,8 +65,8 @@ namespace VisualMetronome
 
         public VisualMetronomeViewModel()
         {
-            PhysicalWidth = 346; // mm
-            MilliPerSec = 100;
+            PhysicalWidth = Properties.Settings.Default.PhysicalWidth;
+            MilliPerSec = Properties.Settings.Default.MilliPerSec;
             PixelWidth = SystemParameters.WorkArea.Width;
             PixelHeight = SystemParameters.WorkArea.Height;
 
@@ -102,7 +107,7 @@ namespace VisualMetronome
         }
         private void showVersionCmdExecute()
         {
-            MessageBox.Show("Visual Metronome v0.01\n2017/11/23", "Version");
+            MessageBox.Show("Visual Metronome v0.02\n2017/11/28", "Version");
         }
     }
 }
